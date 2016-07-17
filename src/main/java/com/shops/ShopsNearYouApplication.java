@@ -3,6 +3,7 @@ package com.shops;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
@@ -21,6 +22,7 @@ public class ShopsNearYouApplication {
 
 	@Bean(name = "geocodeService")
 	@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+	@ConfigurationProperties(prefix = "config.google.api.geocoding")
 	public GeocodeService getGeocodeService() {
 		GeocodeService service = new GeocodeService();
 		return service;

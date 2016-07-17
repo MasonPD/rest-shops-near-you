@@ -2,6 +2,16 @@ package com.shops.data;
 
 import java.util.List;
 
+/**
+ * the store interface
+ * 
+ * @author ranjan
+ *
+ * @param <T>
+ *            the object to store
+ * @param <M>
+ *            the searching criteria
+ */
 public interface Store<T, M> {
 
 	/**
@@ -16,7 +26,9 @@ public interface Store<T, M> {
 	 * 
 	 * @return
 	 */
-	public List<T> getAll();
+	default public List<T> getAll() {
+		return null;
+	}
 
 	/**
 	 * add an item

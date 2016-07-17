@@ -1,7 +1,13 @@
 package com.shops.data;
 
+/**
+ * Utility class
+ * 
+ * @author ranjan
+ *
+ */
 public class Util {
-	
+
 	/**
 	 * Earth’s radius in kilometers
 	 */
@@ -9,17 +15,13 @@ public class Util {
 
 	/**
 	 * Haversine formula to calculate the Great-circle distance between two
-	 * points on a sphere from their longitudes and latitudes 
+	 * points on a sphere from their longitudes and latitudes
 	 * 
-	 * a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2) 
-	 * c = 2 ⋅ atan2( √a, √(1−a) ) 
-	 * d = R ⋅ c 
+	 * a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2) c = 2 ⋅ atan2( √a, √(1−a) )
+	 * d = R ⋅ c
 	 * 
-	 * where 
-	 * φ is latitude, 
-	 * λ is longitude, 
-	 * R is earth’s radius (mean radius = 6,371km)
-	 * note that angles need to be in radians
+	 * where φ is latitude, λ is longitude, R is earth’s radius (mean radius =
+	 * 6,371km) note that angles need to be in radians
 	 * 
 	 * @param lat1
 	 * @param lon1
@@ -28,9 +30,6 @@ public class Util {
 	 * @return Great-circle distance in kilometers
 	 */
 	public static double haversine(double lat1, double lon1, double lat2, double lon2) {
-
-		System.out
-				.println("Calculating distance between : (" + lat1 + "," + lon1 + ") and (" + lat2 + "," + lon2 + ")");
 
 		double dLat = Math.toRadians(lat2 - lat1);
 		double dLon = Math.toRadians(lon2 - lon1);
@@ -42,7 +41,8 @@ public class Util {
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		double dist = R * c;
 
-		System.out.println("The Great-circle distance in kilometers :" + dist);
+		System.out.println(
+				"Distance between : (" + lat1 + "," + lon1 + ") and (" + lat2 + "," + lon2 + ") is " + dist + " KM");
 
 		return dist;
 	}

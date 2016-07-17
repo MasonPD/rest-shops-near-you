@@ -15,17 +15,35 @@ import com.shops.data.Store;
 import com.shops.geocode.GeocodeService;
 import com.shops.model.Shop;
 
+/**
+ * the controller for all the REST enpoints
+ * 
+ * @author ranjan
+ *
+ */
 @RestController
 public class ShopsController {
 
+	/**
+	 * the google geocoding service
+	 */
 	@Autowired
 	@Qualifier("geocodeService")
 	private GeocodeService geocodeService;
 
+	/**
+	 * the data store
+	 */
 	@Autowired
 	@Qualifier("memoryStore")
 	private Store<Shop, LatLng> store;
 
+	/**
+	 * REST endpoint for adding a shop
+	 * 
+	 * @param shop
+	 * @return shop updated with the latitude and longitude
+	 */
 	@RequestMapping(path = "/shop", method = RequestMethod.POST)
 	public Shop updateShop(@RequestBody Shop shop) {
 		LatLng geocode = geocodeService.getGeocode(shop);
@@ -37,6 +55,16 @@ public class ShopsController {
 		return shop;
 	}
 
+	/**
+	 * REST endpoint to find the nearest shop from a location marked with
+	 * latitude and longitude
+	 * 
+	 * @param latitude,
+	 *            the latitude of the customer
+	 * @param longitude,
+	 *            the longitude of the customer
+	 * @return the nearest shop
+	 */
 	@RequestMapping(path = "/shop/{latitude}/{longitude}", method = RequestMethod.GET)
 	public Shop getShop(@PathVariable double latitude, @PathVariable double longitude) {
 		LatLng geocode = new LatLng(latitude, longitude);
@@ -44,6 +72,12 @@ public class ShopsController {
 		return shop;
 	}
 
+	/**
+	 * REST endpoint for a default request without the customer latitude and
+	 * longitude
+	 * 
+	 * @return returns all the registered shops
+	 */
 	@RequestMapping(path = "/shop", method = RequestMethod.GET)
 	public List<Shop> getShops() {
 		return store.getAll();
