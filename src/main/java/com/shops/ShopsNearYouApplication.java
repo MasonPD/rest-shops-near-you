@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
 
 import com.google.maps.model.LatLng;
+import com.shops.data.DynamoStore;
 import com.shops.data.MemoryStore;
 import com.shops.data.Store;
 import com.shops.geocode.GeocodeService;
@@ -22,7 +23,7 @@ public class ShopsNearYouApplication {
 
 	@Bean(name = "geocodeService")
 	@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-	@ConfigurationProperties(prefix = "config")
+	@ConfigurationProperties(prefix = "config.geocodeservice")
 	public GeocodeService getGeocodeService() {
 		GeocodeService service = new GeocodeService();
 		return service;
@@ -32,5 +33,13 @@ public class ShopsNearYouApplication {
 	@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 	public Store<Shop, LatLng> getMemoryStore() {
 		return new MemoryStore();
+	}
+
+	@Bean(name = "dynamoStore", destroyMethod = "shutdown")
+	@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
+	@ConfigurationProperties(prefix = "config.dynamodb")
+	public Store<Shop, LatLng> getDynamoStore() {
+		DynamoStore store = new DynamoStore();
+		return store;
 	}
 }

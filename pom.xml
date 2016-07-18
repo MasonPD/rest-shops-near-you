@@ -34,7 +34,13 @@
 		    <groupId>com.google.maps</groupId>
 		    <artifactId>google-maps-services</artifactId>
 		    <version>0.1.15</version>
-		</dependency>		
+		</dependency>
+		
+        <dependency>
+            <groupId>com.amazonaws</groupId>
+            <artifactId>aws-java-sdk</artifactId>
+            <version>1.9.6</version>
+        </dependency>				
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

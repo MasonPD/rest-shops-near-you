@@ -35,7 +35,7 @@ public class ShopsController {
 	 * the data store
 	 */
 	@Autowired
-	@Qualifier("memoryStore")
+	@Qualifier("dynamoStore")
 	private Store<Shop, LatLng> store;
 
 	/**
