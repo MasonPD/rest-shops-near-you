@@ -1,5 +1,7 @@
 package com.shops.geocode;
 
+import java.net.InetSocketAddress;
+import java.net.Proxy;
 import java.util.Objects;
 
 import com.google.maps.GeoApiContext;
@@ -25,13 +27,35 @@ public class GeocodeService {
 	private GeoApiContext context;
 
 	/**
+	 * proxy settings
+	 */
+	private boolean proxy;
+	private String proxyaddress;
+	private String proxyport;
+	private String proxyuser;
+	private String proxypassword;
+
+	/**
 	 * the api key
 	 */
-	private String key;
+	private String apikey;
 
-	public GeocodeService() {
-		// TODO : set the proxy and the credentials
-		context = new GeoApiContext();
+	/**
+	 * initialize the Geo API Context with API key and request handler etc
+	 */
+	private void initializeGeoApiContext() {
+		if (proxy) {
+			AuthenticatedOkHttpRequestHandler requestHandler = new AuthenticatedOkHttpRequestHandler();
+			Authenticator authenticator = new Authenticator(proxyuser, proxypassword);
+			requestHandler.setAuthenticator(authenticator);
+			InetSocketAddress address = new InetSocketAddress(proxyaddress, Integer.valueOf(proxyport));
+			Proxy proxy = new Proxy(Proxy.Type.HTTP, address);
+			requestHandler.setProxy(proxy);
+			context = new GeoApiContext(requestHandler);
+		} else {
+			context = new GeoApiContext();
+		}
+		context.setApiKey(apikey);
 	}
 
 	/**
@@ -41,7 +65,7 @@ public class GeocodeService {
 	 * @return
 	 */
 	public LatLng getGeocode(Shop shop) {
-		context.setApiKey(key);
+		initializeGeoApiContext();
 		GeocodingResult[] results = null;
 		LatLng geocode = null;
 		try {
@@ -82,12 +106,32 @@ public class GeocodeService {
 		return formattedAddress.toString();
 	}
 
-	public String getKey() {
-		return key;
+	public void setContext(GeoApiContext context) {
+		this.context = context;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setProxyaddress(String proxyaddress) {
+		this.proxyaddress = proxyaddress;
+	}
+
+	public void setProxyport(String proxyport) {
+		this.proxyport = proxyport;
+	}
+
+	public void setProxyuser(String proxyuser) {
+		this.proxyuser = proxyuser;
+	}
+
+	public void setProxypassword(String proxypassword) {
+		this.proxypassword = proxypassword;
+	}
+
+	public void setApikey(String apikey) {
+		this.apikey = apikey;
+	}
+
+	public void setProxy(boolean proxy) {
+		this.proxy = proxy;
 	}
 
 }

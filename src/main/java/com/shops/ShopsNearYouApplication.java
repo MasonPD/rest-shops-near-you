@@ -22,7 +22,7 @@ public class ShopsNearYouApplication {
 
 	@Bean(name = "geocodeService")
 	@Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-	@ConfigurationProperties(prefix = "config.google.api.geocoding")
+	@ConfigurationProperties(prefix = "config")
 	public GeocodeService getGeocodeService() {
 		GeocodeService service = new GeocodeService();
 		return service;
