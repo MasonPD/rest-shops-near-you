@@ -13,10 +13,10 @@ config.proxyuser=user
 config.proxypassword=password
 ```
 
-Else keep `config.proxy=false` in that file.
+Else update the file as `config.proxy=false` in that file.
 
 ## Google map's Geocoding API
-The Google Maps [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start) is a service that provides you the latitude and longitude of an addresses which is called  geocoding. It also supports reverse geocoding i.e. gives you the address from the latitude and longitude provided. To use this Geocoding API you need to first [register](https://developers.google.com/maps/documentation/geocoding/get-api-key) your application with Google using your Google ID. After registration Google gives you an API key which you need to update in the `application.properties` file as
+The Google Maps [Geocoding API](https://developers.google.com/maps/documentation/geocoding/start) is a service that provides you the latitude and longitude of an address which is called  geocoding. It also supports reverse geocoding i.e. gives you the address from the latitude and longitude provided. To use this Geocoding API you need to first [register](https://developers.google.com/maps/documentation/geocoding/get-api-key) your application with Google using your Google ID. After registration Google gives you an API key which you need to update in the `application.properties` file as
 ```
 config.apikey=<your key goes here>
 ```
@@ -26,6 +26,7 @@ The [Great-circle distance](https://en.wikipedia.org/wiki/Great-circle_distance)
 
 ## TO DO List
 - [x] Add comments and JavaDoc
-- [ ] Add logging
+- [x] Add logging
 - [x] Move the API key to a property file
-- [ ] Add proxy support with authenticator
+- [x] Add proxy support with authenticator
+- [ ] Update the API documentation

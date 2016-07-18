@@ -2,6 +2,8 @@ package com.shops.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.maps.model.LatLng;
 import com.shops.model.Shop;
@@ -14,6 +16,11 @@ import com.shops.model.Shop;
  *
  */
 public class MemoryStore implements Store<Shop, LatLng> {
+
+	/**
+	 * logger
+	 */
+	private static final Logger LOG = Logger.getLogger(MemoryStore.class.getName());
 
 	/**
 	 * the list for storing data
@@ -71,7 +78,7 @@ public class MemoryStore implements Store<Shop, LatLng> {
 			if (dist < nearestDist || nearestDist == -1) {
 				nearestShop = shop;
 				nearestDist = dist;
-				System.out.println(" Shop " + nearestShop.getShopName() + " found at " + nearestDist + " KM");
+				LOG.log(Level.INFO, " Shop " + nearestShop.getShopName() + " found at " + nearestDist + " KM");
 			}
 		}
 		return nearestShop;

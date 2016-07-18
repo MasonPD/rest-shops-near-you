@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.maps.GeoApiContext;
-import com.google.maps.OkHttpRequestHandler;
 import com.google.maps.PendingResult;
 import com.google.maps.internal.ApiResponse;
 import com.google.maps.internal.OkHttpPendingResult;
@@ -22,9 +21,20 @@ import com.squareup.okhttp.Request;
  * @see com.google.maps.GeoApiContext.RequestHandler
  */
 public class AuthenticatedOkHttpRequestHandler implements GeoApiContext.RequestHandler {
-	private static final Logger LOG = Logger.getLogger(OkHttpRequestHandler.class.getName());
 
+	/**
+	 * logger
+	 */
+	private static final Logger LOG = Logger.getLogger(AuthenticatedOkHttpRequestHandler.class.getName());
+
+	/**
+	 * the http client
+	 */
 	private final OkHttpClient client = new OkHttpClient();
+
+	/**
+	 * the rate limiting service
+	 */
 	private final RateLimitExecutorService rateLimitExecutorService;
 
 	public AuthenticatedOkHttpRequestHandler() {

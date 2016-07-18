@@ -3,6 +3,8 @@ package com.shops.geocode;
 import java.net.InetSocketAddress;
 import java.net.Proxy;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import com.google.maps.GeoApiContext;
 import com.google.maps.GeocodingApi;
@@ -20,6 +22,11 @@ import com.shops.model.Shop;
  */
 
 public class GeocodeService {
+
+	/**
+	 * logger
+	 */
+	private static final Logger LOG = Logger.getLogger(GeocodeService.class.getName());
 
 	/**
 	 * the context
@@ -45,6 +52,7 @@ public class GeocodeService {
 	 */
 	private void initializeGeoApiContext() {
 		if (proxy) {
+			LOG.log(Level.INFO, "Proxy settings on :", proxyaddress + ":" + proxyport + "@" + proxyuser);
 			AuthenticatedOkHttpRequestHandler requestHandler = new AuthenticatedOkHttpRequestHandler();
 			Authenticator authenticator = new Authenticator(proxyuser, proxypassword);
 			requestHandler.setAuthenticator(authenticator);
@@ -72,8 +80,7 @@ public class GeocodeService {
 			results = GeocodingApi.geocode(context, getFormattedAddress(shop)).await();
 			geocode = results[0].geometry.location;
 		} catch (Exception e) {
-			// TODO : add logging
-			e.printStackTrace();
+			LOG.log(Level.SEVERE, "Exception in invoking Google geocoding API :", e.getCause());
 		}
 		return geocode;
 	}
@@ -102,7 +109,7 @@ public class GeocodeService {
 		if (Objects.nonNull(address.getPostCode())) {
 			formattedAddress.append(address.getPostCode());
 		}
-		System.out.println("Evaluating geocode for the address :" + formattedAddress.toString());
+		LOG.log(Level.INFO, "Evaluating geocode for the address :", formattedAddress.toString());
 		return formattedAddress.toString();
 	}
 

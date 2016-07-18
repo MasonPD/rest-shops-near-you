@@ -1,5 +1,8 @@
 package com.shops.data;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Utility class
  * 
@@ -7,6 +10,11 @@ package com.shops.data;
  *
  */
 public class Util {
+
+	/**
+	 * logger
+	 */
+	private static final Logger LOG = Logger.getLogger(Util.class.getName());
 
 	/**
 	 * Earth’s radius in kilometers
@@ -41,7 +49,7 @@ public class Util {
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		double dist = R * c;
 
-		System.out.println(
+		LOG.log(Level.INFO,
 				"Distance between : (" + lat1 + "," + lon1 + ") and (" + lat2 + "," + lon2 + ") is " + dist + " KM");
 
 		return dist;
