@@ -42,17 +42,15 @@ public class ShopsController {
 	 * REST endpoint for adding a shop
 	 * 
 	 * @param shop
-	 * @return shop updated with the latitude and longitude
 	 */
 	@RequestMapping(path = "/shop", method = RequestMethod.POST)
-	public Shop updateShop(@RequestBody Shop shop) {
+	public void addShop(@RequestBody Shop shop) {
 		LatLng geocode = geocodeService.getGeocode(shop);
 		if (null != geocode) {
 			shop.setShopLatitude(geocode.lat);
 			shop.setShopLongitude(geocode.lng);
 		}
 		store.add(shop);
-		return shop;
 	}
 
 	/**

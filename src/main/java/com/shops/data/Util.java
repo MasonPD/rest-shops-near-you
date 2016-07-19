@@ -1,6 +1,5 @@
 package com.shops.data;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -25,7 +24,8 @@ public class Util {
 	 * Haversine formula to calculate the Great-circle distance between two
 	 * points on a sphere from their longitudes and latitudes
 	 * 
-	 * a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2) c = 2 ⋅ atan2( √a, √(1−a) )
+	 * a = sin²(Δφ/2) + cos φ1 ⋅ cos φ2 ⋅ sin²(Δλ/2) 
+	 * c = 2 ⋅ atan2( √a, √(1−a) )
 	 * d = R ⋅ c
 	 * 
 	 * where φ is latitude, λ is longitude, R is earth’s radius (mean radius =
@@ -48,9 +48,6 @@ public class Util {
 		double a = Math.pow(Math.sin(dLat / 2), 2) + Math.pow(Math.sin(dLon / 2), 2) * Math.cos(lat1) * Math.cos(lat2);
 		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 		double dist = R * c;
-
-		LOG.log(Level.INFO,
-				"Distance between : (" + lat1 + "," + lon1 + ") and (" + lat2 + "," + lon2 + ") is " + dist + " KM");
 
 		return dist;
 	}

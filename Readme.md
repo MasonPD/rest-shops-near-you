@@ -1,6 +1,44 @@
 # Shops Near You API
 Gives you the facility to add a shop with address. Stores the longitude and latitude of your shop using Google [Geocoding API](https://developers.google.com/maps/documentation/geocoding/intro). You can request for a shop mentioning your current latitude and longitude. The API would return you the shop nearest to you.
 
+To add a resource
+```
+Resource			: /shop
+Description			: Adds a shop. The API would find out the latitude and longitude of the shop address using 
+					  Google Maps API and store it with the address.
+Method				: POST
+Request Content-type: application/json
+Example Request		:	{
+						  "shopName": "Amphitheatre Parkway",
+						  "shopAddress": {
+						    "number": "1600",
+						    "addressLine1" : "Mountain View",
+						    "addressLine2" : "CA",
+						    "postCode": "94043"
+						  }
+						}
+Success Response	: 200 OK
+```
+
+To get a resource
+```
+Resource				: /shop/{latitude}/{longitude}
+Description				: Gives you the nearest shop from your latitude and longitude.
+Method					: POST
+Response Content-type	: application/json;charset=UTF-8
+Example Response		: 200 OK	
+							{
+							  "shopName": "Amphitheatre Parkway",
+							  "shopAddress": {
+							    "number": "1600",
+							    "addressLine1": "Mountain View",
+							    "addressLine2": "CA",
+							    "postCode": "94043"
+							  },
+							  "shopLatitude": 37.422364,
+							  "shopLongitude": -122.084364
+							}
+```
 ## How to run
 
 ## If you are behind a proxy server
