@@ -41,18 +41,18 @@ Example Response		: 200 OK
 ```
 ## How to run
 You need Java 8 for running this project.
-- Maven
+- ** Maven : **
 If using maven you can use below command to run it
 
 `mvn spring-boot:run -Dserver.port=8082`
 
-- Gradle
+- ** Gradle :**
 If using gradle use below command to run it (NOT TESTED yet as i dont have gradle setup currently)
 
 `gradle bootRun`
 
-- As jar
-Or you can directly run it as a jar. Change the path to the jar accordingly
+- ** As jar :**
+You can directly run it as a jar using below command. Change the path to the jar accordingly
 
 `java -jar -Dserver.port=8082 shops-near-you.jar`
 
@@ -78,10 +78,3 @@ config.apikey=<your key goes here>
 
 ## The distance comparison logic
 The [Great-circle distance](https://en.wikipedia.org/wiki/Great-circle_distance) or orthodromic distance is the shortest distance between two points on the surface of a sphere, measured along the surface of the sphere (as opposed to a straight line through the sphere's interior). [Haversine formula](https://en.wikipedia.org/wiki/Haversine_formula) is used to calculate the Great-circle distance between two points on a sphere from their longitudes and latitudes. Refer this [article](http://www.movable-type.co.uk/scripts/latlong.html) for the formula.
-
-## TO DO List
-- [x] Add comments and JavaDoc
-- [x] Add logging
-- [x] Move the API key to a property file
-- [x] Add proxy support with authenticator
-- [ ] Update the API documentation
