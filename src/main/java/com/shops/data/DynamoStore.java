@@ -77,10 +77,9 @@ public class DynamoStore implements Store<Shop, LatLng> {
 			}
 
 			db = new DynamoDB(client);
-			shopsTable = db.getTable(DynamoStore.TABLE_NAME);
-			if (null == shopsTable || null == shopsTable.getDescription()) {
-				shopsTable = createShopsTable();
-			}
+
+			shopsTable = createShopsTable();
+
 			initialized = true;
 		}
 	}
