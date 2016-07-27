@@ -26,9 +26,7 @@ public interface Store<T, M> {
 	 * 
 	 * @return
 	 */
-	default public List<T> getAll() {
-		return null;
-	}
+	public List<T> getAll();
 
 	/**
 	 * add an item

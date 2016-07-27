@@ -174,4 +174,10 @@ public class DynamoStore implements Store<Shop, LatLng> {
 		this.localurl = localurl;
 	}
 
+	@Override
+	public List<Shop> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

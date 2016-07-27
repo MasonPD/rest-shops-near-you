@@ -2,7 +2,6 @@ package com.shops.geocode;
 
 import java.net.InetSocketAddress;
 import java.net.Proxy;
-import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,19 +93,19 @@ public class GeocodeService {
 	private String getFormattedAddress(Shop shop) {
 		Address address = shop.getShopAddress();
 		StringBuilder formattedAddress = new StringBuilder();
-		if (Objects.nonNull(shop.getShopName())) {
+		if (null != shop.getShopName()) {
 			formattedAddress.append(shop.getShopName()).append(",");
 		}
-		if (Objects.nonNull(address.getNumber())) {
+		if (null != address.getNumber()) {
 			formattedAddress.append(address.getNumber()).append(",");
 		}
-		if (Objects.nonNull(address.getAddressLine1())) {
+		if (null != address.getAddressLine1()) {
 			formattedAddress.append(address.getAddressLine1()).append(",");
 		}
-		if (Objects.nonNull(address.getAddressLine2())) {
+		if (null != address.getAddressLine2()) {
 			formattedAddress.append(address.getAddressLine2()).append(",");
 		}
-		if (Objects.nonNull(address.getPostCode())) {
+		if (null != address.getPostCode()) {
 			formattedAddress.append(address.getPostCode());
 		}
 		LOG.log(Level.INFO, "Evaluating geocode for the address :", formattedAddress.toString());
