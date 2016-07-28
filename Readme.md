@@ -41,17 +41,17 @@ Example Response		: 200 OK
 ```
 ## How to run
 You need Java 8 for running this project.
-- ** Maven : **
+** Maven : **
 If using maven you can use below command to run it
 
 `mvn spring-boot:run -Dserver.port=8082`
 
-- ** Gradle :**
-If using gradle use below command to run it (NOT TESTED yet as i dont have gradle setup currently)
+** Gradle :**
+If using gradle use below command to run it
 
 `gradle bootRun`
 
-- ** As jar :**
+** As jar :**
 You can directly run it as a jar using below command. Change the path to the jar accordingly
 
 `java -jar -Dserver.port=8082 shops-near-you.jar`
