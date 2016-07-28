@@ -41,6 +41,8 @@ Example Response		: 200 OK
 ```
 ## How to run
 You need Java 8 for running this project.
+
+
 **Maven :**
 If using maven you can use below command to run it
 
