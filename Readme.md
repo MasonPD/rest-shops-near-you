@@ -52,11 +52,6 @@ If using maven you can use below command to run it
 
 `mvn spring-boot:run -Dserver.port=8082`
 
-**Gradle :**
-If using gradle use below command to run it (NOT TESTED yet as i dont have gradle setup currently)
-
-`gradle bootRun`
-
 **As jar :**
 You can directly run it as a jar using below command. Change the path to the jar accordingly
 
@@ -65,7 +60,7 @@ You can directly run it as a jar using below command. Change the path to the jar
 **AWS EC2 :**
 Add the below bootstrap script while launching EC2 instance. Otherwise you can also ssh into the EC2 instance after it is launched and run these commands.
 ```
-\#!/bin/bash
+#!/bin/bash
 sudo su
 yum update -y
 yum install git -y
