@@ -65,8 +65,8 @@ sudo su
 yum update -y
 yum install git -y
 cd /home/ec2-user
-git clone https://github.com/rphukan/shops-near-you-api.git
-cd shops-near-you-api
+git clone https://github.com/MasonPD/rest-shops-near-you.git
+cd rest-shops-near-you
 git checkout aws
 git pull
 java -jar shops-near-you.jar
