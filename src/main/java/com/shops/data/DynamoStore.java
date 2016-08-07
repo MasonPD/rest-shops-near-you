@@ -1,5 +1,6 @@
 package com.shops.data;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -21,10 +22,13 @@ import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.document.spec.GetItemSpec;
 import com.amazonaws.services.dynamodbv2.document.spec.ScanSpec;
 import com.amazonaws.services.dynamodbv2.model.AttributeDefinition;
+import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.KeySchemaElement;
 import com.amazonaws.services.dynamodbv2.model.KeyType;
 import com.amazonaws.services.dynamodbv2.model.ProvisionedThroughput;
 import com.amazonaws.services.dynamodbv2.model.ScalarAttributeType;
+import com.amazonaws.services.dynamodbv2.model.ScanRequest;
+import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.maps.model.LatLng;
 import com.shops.model.Shop;
@@ -32,7 +36,7 @@ import com.shops.model.Shop;
 /**
  * Store too use with AWS DynamoDB
  * 
- * @author ranjan
+ * @author ranjan, linkai
  *
  */
 public class DynamoStore implements Store<Shop, LatLng> {
@@ -175,8 +179,39 @@ public class DynamoStore implements Store<Shop, LatLng> {
 
 	@Override
 	public List<Shop> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Shop> list = new ArrayList<Shop>();
+		
+		ScanResult result = null;
+		
+		do{
+	        ScanRequest req = new ScanRequest();
+	        req.setTableName(TABLE_NAME);
+	 
+	        if(result != null){
+	            req.setExclusiveStartKey(result.getLastEvaluatedKey());
+	        }
+	        
+	        result = client.scan(req);
+	        List<Map<String, AttributeValue>> rows = result.getItems();
+	        
+	        for(Map<String, AttributeValue> map : rows) {
+	        	AttributeValue v = map.get(ID_ATTRIBUTE);
+	        	String id = v.getS();
+	        	// use the shop id to fetch the shop details
+				GetItemSpec getspec = new GetItemSpec().withPrimaryKey(DynamoStore.ID_ATTRIBUTE, Long.parseLong(id));
+				Item nearestShopItem = shopsTable.getItem(getspec);
+				try{
+					ObjectMapper mapper = new ObjectMapper();
+					Shop shop = mapper.readValue(nearestShopItem.toJSON(), Shop.class);
+					list.add(shop);
+				}catch (Exception e) {
+					LOG.log(Level.SEVERE, "Unable to get the shop item:", e.getMessage());
+					e.printStackTrace();
+				}	
+	        }	        
+		}while(result.getLastEvaluatedKey() != null);
+		
+		return list;
 	}
 
 }
