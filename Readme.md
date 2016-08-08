@@ -39,6 +39,43 @@ Example Response		: 200 OK
 							  "shopLongitude": -122.084364
 							}
 ```
+
+To get resources list
+```
+Resource				: /shop
+Description				: Gives you the list of available shops
+Method					: GET
+Response Content-type	: application/json;charset=UTF-8
+Example Response		: 200 OK	
+							[
+   {
+    "id": 352466615589618128,
+    "shopName": "Amphitheatre Parkway",
+    "shopAddress": {
+      "number": "1600",
+      "addressLine1": "Mountain View",
+      "addressLine2": "CA",
+      "postCode": "94043"
+    },
+    "shopLatitude": 37.4223434,
+    "shopLongitude": -122.0843689
+  },
+  {
+    "id": 2463921798603719949,
+    "shopName": "AMC Cupertino Square 16",
+    "shopAddress": {
+      "number": "10123 N Wolfe Rd #3000",
+      "addressLine1": "Cupertino",
+      "addressLine2": "CA",
+      "postCode": "95014"
+    },
+    "shopLatitude": 37.3302487,
+    "shopLongitude": -122.0142856
+  }
+]  
+```
+
+
 ## How to run
 You need Java 8 for running this project.
 
