@@ -10,6 +10,8 @@ import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.PostConstruct;
+
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.regions.ServiceAbbreviations;
@@ -70,6 +72,7 @@ public class DynamoStore implements Store<Shop, LatLng> {
 
 	private Table shopsTable = null;
 
+	@PostConstruct
 	public void init() {
 		if (!initialized) {
 			if (local) {
@@ -106,7 +109,6 @@ public class DynamoStore implements Store<Shop, LatLng> {
 
 	@Override
 	public Shop get(LatLng geocode) {
-		init();
 		// customer latitude and longitude
 		double lat1 = geocode.lat;
 		double lon1 = geocode.lng;
@@ -150,7 +152,6 @@ public class DynamoStore implements Store<Shop, LatLng> {
 
 	@Override
 	public Shop add(Shop item) {
-		init();
 		Random rand = new Random();
 		final Map<String, String> address = new HashMap<>();
 		address.put("number", item.getShopAddress().getNumber());
@@ -196,14 +197,16 @@ public class DynamoStore implements Store<Shop, LatLng> {
 	        
 	        for(Map<String, AttributeValue> map : rows) {
 	        	AttributeValue v = map.get(ID_ATTRIBUTE);
-	        	String id = v.getS();
-	        	// use the shop id to fetch the shop details
-				GetItemSpec getspec = new GetItemSpec().withPrimaryKey(DynamoStore.ID_ATTRIBUTE, Long.parseLong(id));
-				Item nearestShopItem = shopsTable.getItem(getspec);
-				try{
+	        	String id = v.getN();
+	        	try{
+	        		// use the shop id to fetch the shop details
+					GetItemSpec getspec = new GetItemSpec().withPrimaryKey(DynamoStore.ID_ATTRIBUTE, Long.parseLong(id));
+					Item nearestShopItem = shopsTable.getItem(getspec);
 					ObjectMapper mapper = new ObjectMapper();
 					Shop shop = mapper.readValue(nearestShopItem.toJSON(), Shop.class);
 					list.add(shop);
+	        	}catch (NumberFormatException e){
+	        		e.printStackTrace();
 				}catch (Exception e) {
 					LOG.log(Level.SEVERE, "Unable to get the shop item:", e.getMessage());
 					e.printStackTrace();
