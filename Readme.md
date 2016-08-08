@@ -39,6 +39,27 @@ Example Response		: 200 OK
 							  "shopLongitude": -122.084364
 							}
 ```
+
+To get resources list
+```
+Resource				: /shop
+Description				: Gives you the list of available shops
+Method					: GET
+Response Content-type	: application/json;charset=UTF-8
+Example Response		: 200 OK	
+							{
+							  "shopName": "Amphitheatre Parkway",
+							  "shopAddress": {
+							    "number": "1600",
+							    "addressLine1": "Mountain View",
+							    "addressLine2": "CA",
+							    "postCode": "94043"
+							  },
+							  "shopLatitude": 37.422364,
+							  "shopLongitude": -122.084364
+							}      
+```
+
 ## How to run
 You need Java 7 or above for running this project.
 
